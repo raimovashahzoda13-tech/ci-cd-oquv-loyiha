@@ -1,0 +1,10 @@
+{
+  "name": "ci-cd-oquv-loyihasi",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GitHub Actions orqali test, build va deploy amaliyoti",
+  "scripts": {
+    "test": "node --test",
+    "build": "node scripts/build.js"
+  }
+}

@@ -1,0 +1,5 @@
+body { margin: 0; font-family: Arial, sans-serif; background: #f2f5fa; color: #1f2937; }
+.container { max-width: 760px; margin: 12vh auto; padding: 36px; background: white; border-radius: 14px; box-shadow: 0 8px 28px #00000012; }
+h1 { color: #2457a7; }
+button { padding: 12px 18px; border: 0; border-radius: 8px; background: #2457a7; color: white; cursor: pointer; }
+#message { font-weight: bold; margin-top: 18px; }

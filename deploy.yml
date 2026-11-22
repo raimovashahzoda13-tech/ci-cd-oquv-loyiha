@@ -1,0 +1,59 @@
+name: CI-CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository kodini yuklash
+        uses: actions/checkout@v4
+      - name: Node.js o‘rnatish
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Testlarni bajarish
+        run: npm test
+
+  build:
+    name: Build
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository kodini yuklash
+        uses: actions/checkout@v4
+      - name: Node.js o‘rnatish
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Loyihani yig‘ish
+        run: npm run build
+      - name: Build fayllarini saqlash
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    name: Deploy
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: GitHub Pages ga joylashtirish
+        id: deployment
+        uses: actions/deploy-pages@v4
